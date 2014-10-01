@@ -1,15 +1,15 @@
 ;(function(factory) {
     //CommonJS
     if (typeof require === "function" && typeof exports === "object" && typeof module === "object") {
-        factory(require("knockout"), exports);
+        factory(require("knockout"), exports, require("circular-json"));
     //AMD
     } else if (typeof define === "function" && define.amd) {
-        define(["knockout", "exports"], factory);
+        define(["knockout", "exports", "circular-json"], factory);
     //normal script tag
     } else {
         factory(ko, ko.postbox = {});
     }
-}(function(ko, exports, undefined) {
+}(function(ko, exports, CircularJSON, undefined) {
     var disposeTopicSubscription, existingSubscribe;
 
     //create a global postbox that supports subscribing/publishing
@@ -19,7 +19,7 @@
     exports.topicCache = {};
 
     //allow customization of the function used to serialize values for the topic cache
-    exports.serializer = ko.toJSON;
+    exports.serializer = CircularJSON.stringify;
 
     //wrap notifySubscribers passing topic first and caching latest value
     exports.publish = function(topic, value) {
