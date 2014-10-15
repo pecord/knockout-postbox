@@ -7,7 +7,7 @@
         define(["knockout", "exports", "circular-json"], factory);
     //normal script tag
     } else {
-        factory(ko, ko.postbox = {});
+        factory(ko, ko.postbox = {}, CircularJSON);
     }
 }(function(ko, exports, CircularJSON, undefined) {
     var disposeTopicSubscription, existingSubscribe;
